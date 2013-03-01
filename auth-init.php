@@ -68,14 +68,14 @@ class AuthServerHelper {
         if ($_GET['auth']) {
 
             //here is all posted date using curl from other server(client server)
-            $secretkey = trim($_POST['uniquetoken']);
+            $secretkey = trim($_POST['authkey']);
             $user_name = trim($_POST['username']);
             $user_pass = trim($_POST['password']);
             $domain_name = trim($_POST['domainname']);
 
 
-            // get option value using option name ="unique_token_key"
-            $get_option = get_option('unique_token_key');
+            // get option value using option name ="auth_key"
+            $get_option = get_option('auth_key');
 
             //unserlize get option vcalue here
             $un_get_option = maybe_unserialize($get_option);
@@ -149,7 +149,7 @@ class AuthServerHelper {
                 }
             } else {
                 $resp = array('messgae' => 'key not match successfully please check for both key is same at client server and remote server');
-                //echo maybe_serialize($resp);
+                echo maybe_serialize($resp);
             }
 
 

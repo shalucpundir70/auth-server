@@ -1,6 +1,6 @@
 <?php 
 //here we check if option conatcin any value in database
-$get_opt = get_option('unique_token_key');
+$get_opt = get_option('auth_key');
 
 ?>
 <div class="wrap">

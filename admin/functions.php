@@ -35,7 +35,7 @@ function generate_token_key() {
     $updated = false;
 
     $entry = array('domain' => $domain, 'key' => $uniquekey);
-    $options = get_site_option('unique_token_key');
+    $options = get_site_option('auth_key');
 
     if (!$options)
         $options = array();
@@ -55,7 +55,7 @@ function generate_token_key() {
     if (!$updated) {
         $options[$uniquekey] = $entry;
     }
-    update_option('unique_token_key', $options);
+    update_option('auth_key', $options);
     
     echo json_encode(array('message' => 'Auth key generated successfully . Click on view auth key button above.', 'status' => 'success'));
     exit(0);
@@ -70,7 +70,7 @@ add_action("wp_ajax_record_delete_action", "delete_record");
 function delete_record(){
     
     $record_id = $_POST['record_id'];
-    $options = get_site_option('unique_token_key');
+    $options = get_site_option('auth_key');
     
    //here we check particuler delete record id exist in database or not
     if($options[$record_id]['key'] == $record_id ){
@@ -78,7 +78,7 @@ function delete_record(){
         //here we unset the arrry if it match in database
         unset($options[$record_id]);
         //update the array again in database
-        update_option('unique_token_key', $options);
+        update_option('auth_key', $options);
         echo json_encode(array('message' => 'Record Deleted Succesfully', 'status' => 'deleted'));
         exit(0);
     }
