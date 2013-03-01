@@ -1,0 +1,18 @@
+== Installation ==
+ 
+1.)Add files /wp-content/plugins/generate-token
+2.)Activate plugin from admin
+3.)Create a tab Generate Tokens in dashboard
+
+
+== Working ==
+
+Using Generate Token we can add multiple website url using "Add Site" .
+that will automatic generate a unique token for every site.
+
+for example :you added site :http://localhost/user it generate a unique number 207992f6377433e860064f22deb7a731
+
+This unique number, you have to add to client server(for ex :http://localhost/user) so that userinfo can be shared between both remote server (for ex:http://localhost/latestwp) and client server(http://localhost/user)
+
+This plugin will not work individual you need to activate other plugin at client server
+	
