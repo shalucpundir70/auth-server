@@ -41,8 +41,7 @@ $get_opt = get_option('auth_key');
         <td><?php echo $count;?>
         <td><?php echo $info['domain'];?></td>
         <td><?php echo $info['key'];?></td>
-        <td><img id="<?php echo $info['key']?>" class="del_button" src="<?php echo AUTH_IMAGE_DIR?>remove.png"/> |
-            <a id="<?php echo $info['key']?>" href="#" class="reset" data-domain="<?php echo $info['domain'];?>">reset</a></td>
+        <td><img id="<?php echo $info['key']?>" class="del_button" src="<?php echo AUTH_IMAGE_DIR?>remove.png"/> </td>
     </tr>
     <?php $count++;endforeach;?>
     <?php else: ?>

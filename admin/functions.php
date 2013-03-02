@@ -28,7 +28,8 @@ function auth_server_generate_key() {
 
     $time = time();
     $domain = trim($domain);
-    $data = array($domain, $time, SECURE_AUTH_KEY);
+    $data = array($domain, $time,SECURE_AUTH_KEY);
+    
     shuffle($data);
     $uniquekey = md5(join(":", $data)); //unique key
 
@@ -86,28 +87,6 @@ function auth_server_delete_key(){
    
 }
 
-/** 
- * reset auth key here
- */
- add_action("wp_ajax_reset_key", "auth_server_reset_key");
- 
- function auth_server_reset_key(){
-     $record_id = $_POST['record_id'];
-      $options = get_site_option('auth_key');
-      echo"<pre>";print_r($options);
-      //here we check particuler reset record id exist in database or not
-      if($options[$record_id]['key'] == $record_id ){
-          unset($options[$record_id]['key']);
-           //update the array again in database
-            update_option('auth_key', $options);
-           //here we again generate a auth key
-            $time = time();
-        
-        
-        $options = get_site_option('auth_key');
-        echo"<pre>";print_r($options);
-      }
- }
 
 /**
  * This function validate domain entered by you 

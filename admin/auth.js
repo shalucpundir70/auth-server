@@ -35,6 +35,8 @@ jQuery(document).ready( function() {
         e.preventDefault();
         var delid = this.id;
        
+       
+       
         jQuery.post(ajaxurl,
         {
             action: "delete_key",
@@ -54,28 +56,6 @@ jQuery(document).ready( function() {
     });
    // reset auth key here
    
-    jQuery(".listtoken").on("click",".reset",function(e){
-        
-        e.preventDefault();
-        var delid = this.id;
-        
-        jQuery.post(ajaxurl,
-        {
-            action: "reset_key",
-            record_id: delid
-        },
-        function(response) {
-           console.log(response);
-          /* if(response.status === "deleted") {
-                // do something with response.message or whatever other data on success
-                jQuery('.message').html("<div class='updated'>"+response.message+"</div>");
-                jQuery('#token_'+delid).fadeOut("slow");
-
-            } */
-        },"json");
-
-        return false;   
-    });
-
+   
 });//end of dom ready
 
