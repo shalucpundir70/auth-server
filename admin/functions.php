@@ -2,9 +2,9 @@
 /**
  * Generate token form submission using ajax 
  */
-add_action("wp_ajax_form_submit_action", "generate_token_key");
+add_action("wp_ajax_form_submit_action", "auth_server_generate_key");
 
-function generate_token_key() {
+function auth_server_generate_key() {
     //check the request
     //nonce validate
     //if we are here, we are assuming, we recieved a valid request
@@ -13,7 +13,7 @@ function generate_token_key() {
     $domain = $_POST['site_domain'];
     //if domain is empty or not valid format ,show a error message 
     
-    if (empty($domain) || !fused_validate_domain($domain)) {
+    if (empty($domain) || !auth_server_validate_domain($domain)) {
         //we have got an error, this is not a valid request
         //tell the user that you must enter a domain name
         $message = array('message' => 'Your domain is empty or invalid', 'status' => 'error');
@@ -65,9 +65,9 @@ function generate_token_key() {
 /**
  * Delete added record using ajax when you click cross image in front of every token listing 
  */
-add_action("wp_ajax_record_delete_action", "delete_record");
+add_action("wp_ajax_delete_key", "auth_server_delete_key");
 
-function delete_record(){
+function auth_server_delete_key(){
     
     $record_id = $_POST['record_id'];
     $options = get_site_option('auth_key');
@@ -86,14 +86,37 @@ function delete_record(){
    
 }
 
+/** 
+ * reset auth key here
+ */
+ add_action("wp_ajax_reset_key", "auth_server_reset_key");
+ 
+ function auth_server_reset_key(){
+     $record_id = $_POST['record_id'];
+      $options = get_site_option('auth_key');
+      echo"<pre>";print_r($options);
+      //here we check particuler reset record id exist in database or not
+      if($options[$record_id]['key'] == $record_id ){
+          unset($options[$record_id]['key']);
+           //update the array again in database
+            update_option('auth_key', $options);
+           //here we again generate a auth key
+            $time = time();
+        
+        
+        $options = get_site_option('auth_key');
+        echo"<pre>";print_r($options);
+      }
+ }
+
 /**
  * This function validate domain entered by you 
- * we used this function inside generate_token_key() above
+ * we used this function inside auth_server_generate_key() above
  * 
  * @param type $domain
  * @return type 
  */
-function fused_validate_domain($domain) {
+function auth_server_validate_domain($domain) {
 
      return preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $domain);
     //return true;
